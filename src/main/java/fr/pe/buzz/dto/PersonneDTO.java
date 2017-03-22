@@ -3,9 +3,6 @@ package fr.pe.buzz.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by ijfa3650 on 22/03/2017.
- */
 public class PersonneDTO {
 
     private Long idPersonne;

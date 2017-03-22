@@ -29,6 +29,10 @@ public class AbsenceDTO   {
         return idAbsence;
     }
 
+    public void setIdAbsence(Long idAbsence) {
+        this.idAbsence = idAbsence;
+    }
+
     public PersonneDTO getPersonne() {
         return personne;
     }

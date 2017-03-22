@@ -4,9 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-/**
- * Created by ijfa3650 on 22/03/2017.
- */
+
 @Entity
 @Table(name = "absences")
 public class Absence {

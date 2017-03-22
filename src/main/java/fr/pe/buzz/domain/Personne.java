@@ -8,9 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by ijfa3650 on 22/03/2017.
- */
+
 public class Personne {
 
 
@@ -30,6 +28,12 @@ public class Personne {
 
     public Personne(Long idPersonne) {
         this.idPersonne = idPersonne;
+    }
+
+    public Personne(Long idPersonne, String nom,String prenom) {
+        this.idPersonne=idPersonne;
+        this.nom = nom;
+        this.prenom = prenom;
     }
 
     public Personne(String nom,String prenom) {
