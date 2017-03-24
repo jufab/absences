@@ -1,23 +1,37 @@
-package fr.pe.buzz.dto;
+package fr.jufab.springboot.domain;
 
-
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-/**
- * Created by ijfa3650 on 22/03/2017.
- */
-public class AbsenceDTO   {
+
+@Entity
+@Table(name = "absence")
+public class Absence {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idAbsence;
-    private PersonneDTO personne;
+    @NotNull
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="idPersonne")
+    private Personne personne;
+    @NotNull
     private Date dateAbsence;
+    @NotNull
     private Boolean matin;
+    @NotNull
     private Boolean apresMidi;
+    @NotNull
     private String status;
 
-    public AbsenceDTO() {
+    public Absence() { }
+
+    public Absence(long idAbsence) {
+        this.idAbsence = idAbsence;
     }
 
-    public AbsenceDTO(PersonneDTO personne, Date dateAbsence, Boolean matin, Boolean apresMidi, String status) {
+    public Absence(Personne personne, Date dateAbsence, Boolean matin, Boolean apresMidi, String status) {
         this.personne = personne;
         this.dateAbsence = dateAbsence;
         this.matin = matin;
@@ -33,11 +47,11 @@ public class AbsenceDTO   {
         this.idAbsence = idAbsence;
     }
 
-    public PersonneDTO getPersonne() {
+    public Personne getPersonne() {
         return personne;
     }
 
-    public void setPersonne(PersonneDTO personne) {
+    public void setPersonne(Personne personne) {
         this.personne = personne;
     }
 

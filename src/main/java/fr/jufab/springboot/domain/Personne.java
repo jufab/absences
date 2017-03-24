@@ -1,14 +1,12 @@
-package fr.pe.buzz.domain;
+package fr.jufab.springboot.domain;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Entity
+@Table(name = "personne")
 public class Personne {
 
 

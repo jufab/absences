@@ -1,4 +1,4 @@
-package fr.pe.buzz.dto;
+package fr.jufab.springboot.dto;
 
 import java.util.ArrayList;
 import java.util.List;

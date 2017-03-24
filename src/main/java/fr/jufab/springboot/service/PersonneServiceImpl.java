@@ -1,15 +1,13 @@
-package fr.pe.buzz.service;
+package fr.jufab.springboot.service;
 
-import fr.pe.buzz.domain.Personne;
-import fr.pe.buzz.domain.repository.PersonneRepository;
-import fr.pe.buzz.dto.PersonneDTO;
+import fr.jufab.springboot.domain.Personne;
+import fr.jufab.springboot.domain.repository.PersonneRepository;
+import fr.jufab.springboot.dto.PersonneDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 

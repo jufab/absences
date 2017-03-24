@@ -1,6 +1,6 @@
-package fr.pe.buzz.service;
+package fr.jufab.springboot.service;
 
-import fr.pe.buzz.dto.PersonneDTO;
+import fr.jufab.springboot.dto.PersonneDTO;
 
 import java.util.List;
 
