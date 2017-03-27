@@ -22,25 +22,53 @@ public class PersonneRepositoryTest {
     private PersonneRepository repository;
 
     @Test
-    public void ajouterUnePersonne() throws Exception {
-        Personne personne = new Personne("FABRE2","Julien");
+    public void ajouterUnePersonneTest() throws Exception {
+        Personne personne = new Personne("FABRE","Julien");
         Personne newPersonne = this.repository.saveAndFlush(personne);
-        assertThat(newPersonne.getNom()).isEqualTo("FABRE2");
+        assertThat(newPersonne.getNom()).isEqualTo("FABRE");
         assertThat(newPersonne.getPrenom()).isEqualTo("Julien");
     }
 
     @Test
     @Sql("personnes.sql")
-    public void verifierUneListeDePersonnes() throws Exception {
+    public void verifierUneListeDePersonnesTest() throws Exception {
         List<Personne> personnes = this.repository.findAll();
-        assertThat(personnes.size()).isEqualTo(3);
+        assertThat(personnes).hasSize(3).extracting("nom").contains("FABRE");
     }
 
     @Test
-    public void supprimerUnePersonne() throws Exception {
+    public void modifierUnePersonneTest() throws Exception {
+        Personne personne = new Personne("ASUPPRIMER","Julien");
+        Personne personneAModifier = this.repository.saveAndFlush(personne);
+        personneAModifier.setNom("FABRE");
+        Personne newPersonne = this.repository.saveAndFlush(personneAModifier);
+        assertThat(newPersonne.getNom()).isEqualTo("FABRE");
+    }
+
+    @Test
+    public void supprimerUnePersonneTest() throws Exception {
         Personne personne = new Personne("ASUPPRIMER","Julien");
         Personne newPersonne = this.repository.saveAndFlush(personne);
         this.repository.delete(newPersonne);
+        assertThat(this.repository.count()).isEqualTo(0);
+    }
+
+    @Test
+    @Sql("personnes.sql")
+    public void rechercherUnePersonneParIdTest() throws Exception {
+        List<Personne> personnes = this.repository.findAll();
+        Personne personne = this.repository.findOne(personnes.get(0).getIdPersonne());
+        assertThat(personne.getNom()).isEqualTo("FABRE");
+
+    }
+
+
+    @Test
+    @Sql("personnes.sql")
+    public void rechercherUnePersonneParNomTest() throws Exception {
+        List<Personne> personnes = this.repository.findByNom("FABRE");
+        assertThat(personnes.get(0).getNom()).isEqualTo("FABRE");
+
     }
 
 }
