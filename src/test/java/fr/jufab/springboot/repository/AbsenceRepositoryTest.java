@@ -10,9 +10,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,12 +45,23 @@ public class AbsenceRepositoryTest {
         assertThat(newAbsence.getIdAbsence()).isNotNull().isNotZero();
     }
 
-    /*@Test
-    public void testAjoutDUneAbsence() throws Exception {
+    @Test
+    public void testSuppressionDUneAbsence() throws Exception {
         Absence uneAbsence = new Absence(this.unePersonne,new Date(),true,false,"S");
         Absence newAbsence = this.absenceRepository.saveAndFlush(uneAbsence);
-        assertThat(newAbsence.getIdAbsence()).isNotNull().isNotZero();
-    }*/
+        this.absenceRepository.delete(newAbsence);
+        assertThat(this.absenceRepository.findAll()).hasSize(0);
+    }
+
+    @Test
+    @SqlGroup({
+            @Sql(scripts = "personnes.sql"),
+            @Sql(scripts =  "absences.sql")
+    })
+    public void testListerDesAbsences() throws Exception {
+        List<Absence> absences = this.absenceRepository.findAll();
+        assertThat(absences).hasSize(3);
+    }
 
 
 }
