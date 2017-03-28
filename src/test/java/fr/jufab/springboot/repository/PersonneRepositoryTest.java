@@ -41,6 +41,7 @@ public class PersonneRepositoryTest {
         Personne personne = new Personne("ASUPPRIMER","Julien");
         Personne personneAModifier = this.repository.saveAndFlush(personne);
         personneAModifier.setNom("FABRE");
+        personneAModifier.setPrenom("malcolm");
         Personne newPersonne = this.repository.saveAndFlush(personneAModifier);
         assertThat(newPersonne.getNom()).isEqualTo("FABRE");
     }

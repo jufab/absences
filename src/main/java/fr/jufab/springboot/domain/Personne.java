@@ -21,12 +21,7 @@ public class Personne {
     @OneToMany(mappedBy="personne")
     private List<Absence> absences = new ArrayList<>();
 
-
     public Personne(){}
-
-    public Personne(Long idPersonne) {
-        this.idPersonne = idPersonne;
-    }
 
     public Personne(Long idPersonne, String nom,String prenom) {
         this.idPersonne=idPersonne;
@@ -43,9 +38,6 @@ public class Personne {
         return idPersonne;
     }
 
-    public void setIdPersonne(Long idPersonne) {
-        this.idPersonne = idPersonne;
-    }
 
     public String getNom() {
         return nom;

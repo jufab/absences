@@ -27,9 +27,6 @@ public class Absence {
 
     public Absence() { }
 
-    public Absence(long idAbsence) {
-        this.idAbsence = idAbsence;
-    }
 
     public Absence(Personne personne, Date dateAbsence, Boolean matin, Boolean apresMidi, String status) {
         this.personne = personne;
@@ -41,10 +38,6 @@ public class Absence {
 
     public Long getIdAbsence() {
         return idAbsence;
-    }
-
-    public void setIdAbsence(Long idAbsence) {
-        this.idAbsence = idAbsence;
     }
 
     public Personne getPersonne() {
