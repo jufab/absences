@@ -1,6 +1,7 @@
 package fr.jufab.springboot.repository;
 
 
+import fr.jufab.springboot.constant.StatusAbsence;
 import fr.jufab.springboot.domain.Absence;
 import fr.jufab.springboot.domain.Personne;
 import fr.jufab.springboot.domain.repository.AbsenceRepository;
@@ -58,9 +59,11 @@ public class AbsenceRepositoryTest {
             @Sql(scripts = "personnes.sql"),
             @Sql(scripts =  "absences.sql")
     })
-    public void testListerDesAbsences() throws Exception {
+    public void testListerDesAbsencesEtParStatus() throws Exception {
         List<Absence> absences = this.absenceRepository.findAll();
         assertThat(absences).hasSize(3);
+        absences = this.absenceRepository.findByStatus(StatusAbsence.S.toString());
+        assertThat(absences).hasSize(2).extracting(Absence::getStatus).contains(StatusAbsence.S.toString());
     }
 
 

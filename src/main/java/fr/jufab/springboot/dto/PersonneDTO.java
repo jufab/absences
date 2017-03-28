@@ -13,6 +13,11 @@ public class PersonneDTO {
     public PersonneDTO() {
     }
 
+    public PersonneDTO(String nom, String prenom) {
+        this.nom = nom;
+        this.prenom = prenom;
+    }
+
     public PersonneDTO(Long idPersonne, String nom, String prenom) {
         this.idPersonne = idPersonne;
         this.nom = nom;
