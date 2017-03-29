@@ -1,6 +1,6 @@
 package fr.jufab.springboot.service;
 
-import fr.jufab.springboot.dto.PersonneDTO;
+import fr.jufab.springboot.domain.Personne;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,54 +22,50 @@ public class PersonneServiceTest {
 
     @Test
     public void testLAjoutDUnePersonne() {
-        PersonneDTO personneDTO = new PersonneDTO("FABRE","Julien");
-        PersonneDTO newPersonneDTO = this.personneService.createPersonne(personneDTO);
-        assertThat(newPersonneDTO).hasFieldOrProperty("idPersonne").isNotNull();
-        assertThat(newPersonneDTO).hasFieldOrPropertyWithValue("nom","FABRE");
-        assertThat(newPersonneDTO).hasFieldOrPropertyWithValue("prenom","Julien");
+        Personne personne = new Personne("FABRE","Julien");
+        Personne newPersonne = this.personneService.createPersonne(personne);
+        assertThat(newPersonne).hasFieldOrProperty("idPersonne").isNotNull();
+        assertThat(newPersonne).hasFieldOrPropertyWithValue("nom","FABRE");
+        assertThat(newPersonne).hasFieldOrPropertyWithValue("prenom","Julien");
     }
-
-    /*;
-    void deletePersonne(PersonneDTO personne);*/
 
     @Test
     public void testListerLesPersonnesAvecEtSansLimite() {
-        List<PersonneDTO> personnesDTO = this.personneService.getAllPersonnes(0);
-        assertThat(personnesDTO).extracting(PersonneDTO::getNom).contains("FABRE");
-        personnesDTO = this.personneService.getAllPersonnes(2);
-        assertThat(personnesDTO).hasSize(2).extracting(PersonneDTO::getNom).contains("FABRE");
+        List<Personne> personnes = this.personneService.getAllPersonnes(0);
+        assertThat(personnes).extracting(Personne::getNom).contains("FABRE");
+        personnes = this.personneService.getAllPersonnes(2);
+        assertThat(personnes).hasSize(2).extracting(Personne::getNom).contains("FABRE");
     }
 
     @Test
     public void testObtenirUnePersonneParSonId() {
-        PersonneDTO personneDTO = this.personneService.getPersonneById(new Long(1));
-        assertThat(personneDTO).isNotNull();
+        Personne personne = this.personneService.getPersonneById(new Long(1));
+        assertThat(personne).isNotNull();
     }
 
     @Test
     public void testModifierUnePersonne() {
-        PersonneDTO personneDTO = this.personneService.getPersonneById(new Long(1));
-        personneDTO.setPrenom("toto");
-        personneDTO = this.personneService.updatePersonne(personneDTO);
-        assertThat(personneDTO).hasFieldOrPropertyWithValue("prenom","toto");
+        Personne personne = this.personneService.getPersonneById(new Long(1));
+        personne.setPrenom("toto");
+        personne = this.personneService.updatePersonne(personne);
+        assertThat(personne).hasFieldOrPropertyWithValue("prenom","toto");
     }
 
     @Test
     public void testSupprimerUnePersonneParId() {
-        List<PersonneDTO> personnesDTO = this.personneService.getAllPersonnes(0);
-        this.personneService.deletePersonneById(new Long(personnesDTO.size()));
-        List<PersonneDTO> newPersonnesDTO = this.personneService.getAllPersonnes(0);
-        assertThat(newPersonnesDTO.size()).isEqualTo(personnesDTO.size()-1);
+        List<Personne> personnes = this.personneService.getAllPersonnes(0);
+        this.personneService.deletePersonneById(new Long(personnes.size()));
+        List<Personne> newPersonnes = this.personneService.getAllPersonnes(0);
+        assertThat(newPersonnes.size()).isEqualTo(personnes.size()-1);
     }
 
     @Test
     public void testSupprimerUnePersonne() {
-        List<PersonneDTO> personnesDTO = this.personneService.getAllPersonnes(0);
-        PersonneDTO personne = personnesDTO.get(personnesDTO.size()-1);
+        List<Personne> personnes = this.personneService.getAllPersonnes(0);
+        Personne personne = personnes.get(personnes.size()-1);
         this.personneService.deletePersonne(personne);
-        List<PersonneDTO> newPersonnesDTO = this.personneService.getAllPersonnes(0);
-        assertThat(newPersonnesDTO.size()).isEqualTo(personnesDTO.size()-1);
+        List<Personne> newPersonnes = this.personneService.getAllPersonnes(0);
+        assertThat(newPersonnes.size()).isEqualTo(personnes.size()-1);
     }
-
 
 }

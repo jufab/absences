@@ -1,15 +1,15 @@
 package fr.jufab.springboot.service;
 
-import fr.jufab.springboot.dto.PersonneDTO;
+import fr.jufab.springboot.domain.Personne;
 
 import java.util.List;
 
 
 public interface PersonneService {
-    PersonneDTO createPersonne(PersonneDTO personne);
-    List<PersonneDTO> getAllPersonnes(int limite);
-    PersonneDTO getPersonneById(Long id);
-    PersonneDTO updatePersonne(PersonneDTO personne);
+    Personne createPersonne(Personne personne);
+    List<Personne> getAllPersonnes(int limite);
+    Personne getPersonneById(Long id);
+    Personne updatePersonne(Personne personne);
     void deletePersonneById(Long id);
-    void deletePersonne(PersonneDTO personne);
+    void deletePersonne(Personne personne);
 }
