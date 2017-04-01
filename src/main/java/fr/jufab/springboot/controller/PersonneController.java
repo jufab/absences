@@ -26,7 +26,8 @@ public class PersonneController {
 
     @RequestMapping(method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
     Personne ajouteUnePersonne(@RequestBody Personne personne) {
-        return this.personneService.createPersonne(personne);
+        Personne personneAjoutee = this.personneService.createPersonne(personne);
+        return new Personne(personneAjoutee.getIdPersonne(),personneAjoutee.getNom(),personneAjoutee.getPrenom());
     }
 
     @RequestMapping(method = RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE)

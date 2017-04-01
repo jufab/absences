@@ -81,12 +81,17 @@ public class PersonneControllerTest {
 
     @Test
     public void posterUnePersonneDePlusParlaRessourcePersonnes() throws Exception {
-        String personneJson = json(new Personne("UNENOUVELLE", "Personne"));
+        Personne personneAAjouter = new Personne("UNENOUVELLE", "Personne");
+        Personne personneRetour = new Personne(new Long(1),personneAAjouter.getNom(),personneAAjouter.getPrenom());
+        given(this.personneService.createPersonne(personneAAjouter))
+                .willReturn(personneRetour);
 
+        String personneJson = json(personneAAjouter);
         this.mockMvc.perform(post("/personnes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(personneJson))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("idPersonne",is(personneRetour.getIdPersonne().intValue())));
     }
 
     @Test

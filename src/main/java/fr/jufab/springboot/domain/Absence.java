@@ -2,12 +2,13 @@ package fr.jufab.springboot.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 
 @Entity
 @Table(name = "absence")
-public class Absence {
+public class Absence implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
