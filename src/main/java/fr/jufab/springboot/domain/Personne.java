@@ -15,10 +15,13 @@ public class Personne {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty("idPersonne")
     private Long idPersonne;
     @NotNull
+    @JsonProperty("nom")
     private String nom;
     @NotNull
+    @JsonProperty("prenom")
     private String prenom;
 
     @OneToMany(mappedBy="personne")
