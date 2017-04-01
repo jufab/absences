@@ -37,7 +37,8 @@ public class PersonneController {
 
     @RequestMapping(value = "/{idPersonne}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
     Personne obtenirUnePersonne(@PathVariable Long idPersonne) {
-        return this.personneService.getPersonneById(idPersonne);
+        Personne personneRecherche = this.personneService.getPersonneById(idPersonne);
+        return new Personne(personneRecherche.getIdPersonne(),personneRecherche.getNom(),personneRecherche.getPrenom());
     }
 
     @RequestMapping(value = "/{idPersonne}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
