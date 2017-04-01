@@ -2,6 +2,8 @@ package fr.jufab.springboot.controller;
 
 import fr.jufab.springboot.domain.Personne;
 import fr.jufab.springboot.service.PersonneService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value ="/personnes")
 public class PersonneController {
-
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final PersonneService personneService;
 
     @Autowired
@@ -37,7 +39,9 @@ public class PersonneController {
 
     @RequestMapping(value = "/{idPersonne}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
     Personne obtenirUnePersonne(@PathVariable Long idPersonne) {
+        logger.info("idPersonne : ", idPersonne);
         Personne personneRecherche = this.personneService.getPersonneById(idPersonne);
+        logger.info("Personne Recherche : ", personneRecherche);
         return new Personne(personneRecherche.getIdPersonne(),personneRecherche.getNom(),personneRecherche.getPrenom());
     }
 

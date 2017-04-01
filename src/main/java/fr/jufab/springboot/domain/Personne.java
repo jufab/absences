@@ -2,6 +2,7 @@ package fr.jufab.springboot.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,10 +19,10 @@ public class Personne implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty("idPersonne")
     private Long idPersonne;
-    @NotNull
+    @NotEmpty
     @JsonProperty("nom")
     private String nom;
-    @NotNull
+    @NotEmpty
     @JsonProperty("prenom")
     private String prenom;
 
