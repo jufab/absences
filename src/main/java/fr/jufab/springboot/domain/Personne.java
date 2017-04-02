@@ -55,9 +55,9 @@ public class Personne implements Serializable {
         return idPersonne;
     }
 
-    public void setIdPersonne(Long idPersonne) {
+    /*public void setIdPersonne(Long idPersonne) {
         this.idPersonne = idPersonne;
-    }
+    }*/
 
     public void setAbsences(List<Absence> absences) {
         this.absences = absences;

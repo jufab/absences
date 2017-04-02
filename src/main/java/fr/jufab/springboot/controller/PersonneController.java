@@ -46,7 +46,7 @@ public class PersonneController {
         return this.personneService.updatePersonne(new Personne(new Long(idPersonne),nom,prenom));
     }
 
-    @RequestMapping(value = "/{idPersonne}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{idPersonne}", method = RequestMethod.DELETE)
     void supprimeUnePersonne(@PathVariable String idPersonne) {
         this.personneService.deletePersonneById(new Long(idPersonne));
     }
