@@ -23,7 +23,7 @@ public class PersonneRepositoryTest {
 
     @Test
     public void ajouterUnePersonneTest() throws Exception {
-        Personne personne = new Personne("FABRE","Julien");
+        Personne personne = new Personne(null,"FABRE","Julien");
         Personne newPersonne = this.repository.saveAndFlush(personne);
         assertThat(newPersonne.getNom()).isEqualTo("FABRE");
         assertThat(newPersonne.getPrenom()).isEqualTo("Julien");
@@ -38,7 +38,7 @@ public class PersonneRepositoryTest {
 
     @Test
     public void modifierUnePersonneTest() throws Exception {
-        Personne personne = new Personne("ASUPPRIMER","Julien");
+        Personne personne = new Personne(null,"ASUPPRIMER","Julien");
         Personne personneAModifier = this.repository.saveAndFlush(personne);
         personneAModifier.setNom("FABRE");
         personneAModifier.setPrenom("malcolm");
@@ -48,7 +48,7 @@ public class PersonneRepositoryTest {
 
     @Test
     public void supprimerUnePersonneTest() throws Exception {
-        Personne personne = new Personne("ASUPPRIMER","Julien");
+        Personne personne = new Personne(null,"ASUPPRIMER","Julien");
         Personne newPersonne = this.repository.saveAndFlush(personne);
         this.repository.delete(newPersonne);
         assertThat(this.repository.count()).isEqualTo(0);

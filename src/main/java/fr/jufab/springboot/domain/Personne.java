@@ -1,5 +1,6 @@
 package fr.jufab.springboot.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -26,11 +27,16 @@ public class Personne implements Serializable {
     @JsonProperty("prenom")
     private String prenom;
 
+    //@JsonBackReference
     @OneToMany(mappedBy="personne")
     private List<Absence> absences = new ArrayList<>();
 
-    @JsonCreator
-    public Personne(){}
+    public Personne(){};
+
+    /*@JsonCreator
+    public Personne(@JsonProperty("idPersonne") Long idPersonne){
+        this.idPersonne=idPersonne;
+    }*/
 
     @JsonCreator
     public Personne(@JsonProperty("idPersonne") Long idPersonne,@JsonProperty("nom") String nom,@JsonProperty("prenom") String prenom) {
@@ -39,11 +45,11 @@ public class Personne implements Serializable {
         this.prenom = prenom;
     }
 
-    @JsonCreator
+    /*@JsonCreator
     public Personne(@JsonProperty("nom") String nom,@JsonProperty("prenom")String prenom) {
         this.nom = nom;
         this.prenom = prenom;
-    }
+    }*/
 
     public Long getIdPersonne() {
         return idPersonne;

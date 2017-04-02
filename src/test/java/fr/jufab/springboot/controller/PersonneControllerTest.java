@@ -81,7 +81,7 @@ public class PersonneControllerTest {
 
     @Test
     public void posterUnePersonneDePlusParlaRessourcePersonnes() throws Exception {
-        Personne personneAAjouter = new Personne("UNENOUVELLE", "Personne");
+        Personne personneAAjouter = new Personne(null,"UNENOUVELLE", "Personne");
         Personne personneRetour = new Personne(new Long(1),personneAAjouter.getNom(),personneAAjouter.getPrenom());
         given(this.personneService.createPersonne(personneAAjouter))
                 .willReturn(personneRetour);
@@ -114,11 +114,12 @@ public class PersonneControllerTest {
         given(this.personneService.getPersonneById(unePersonne.getIdPersonne()))
                 .willReturn(unePersonne);
 
-        this.mockMvc.perform(get("/personnes/{idPersonne}",unePersonne.getIdPersonne()).accept(MediaType.APPLICATION_JSON)).andDo(print());
-                /*.andExpect(status().isOk())
+        this.mockMvc.perform(get("/personnes/{idPersonne}",unePersonne.getIdPersonne()).accept(MediaType.APPLICATION_JSON))
+                //.andDo(print());
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("idPersonne",is(this.uneListeDePersonnes.get(0).getIdPersonne().intValue())))
                 .andExpect(jsonPath("nom",is(this.uneListeDePersonnes.get(0).getNom())))
-                .andExpect(jsonPath("prenom",is(this.uneListeDePersonnes.get(0).getPrenom())));*/
+                .andExpect(jsonPath("prenom",is(this.uneListeDePersonnes.get(0).getPrenom())));
     }
 
     @Test

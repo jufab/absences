@@ -1,5 +1,7 @@
 package fr.jufab.springboot.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -13,6 +15,7 @@ public class Absence implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idAbsence;
+    //@JsonManagedReference
     @NotNull
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="idPersonne")

@@ -35,7 +35,7 @@ public class AbsenceRepositoryTest {
 
     @Before
     public void chargerUnePersonnePourLeTest() {
-        Personne unePersonne = new Personne("FABRE", "Julien");
+        Personne unePersonne = new Personne(null,"FABRE", "Julien");
         this.unePersonne = personneRepository.saveAndFlush(unePersonne);
     }
 

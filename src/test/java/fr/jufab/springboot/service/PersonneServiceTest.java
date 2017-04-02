@@ -24,7 +24,7 @@ public class PersonneServiceTest {
 
     @Test
     public void testLAjoutDUnePersonne() {
-        Personne personne = new Personne("FABRE","Julien");
+        Personne personne = new Personne(null,"FABRE","Julien");
         Personne newPersonne = this.personneService.createPersonne(personne);
         assertThat(newPersonne).hasFieldOrProperty("idPersonne").isNotNull();
         assertThat(newPersonne).hasFieldOrPropertyWithValue("nom","FABRE");
