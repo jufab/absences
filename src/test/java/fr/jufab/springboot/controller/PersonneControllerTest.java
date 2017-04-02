@@ -133,8 +133,11 @@ public class PersonneControllerTest {
         given(this.personneService.updatePersonne(uneAutrePersonne))
                 .willReturn(uneAutrePersonne);
 
-        this.mockMvc.perform(post("/personnes/{idPersonne}", uneAutrePersonne.getIdPersonne()).contentType(MediaType.MULTIPART_FORM_DATA)
-                .requestAttr("nom", uneAutrePersonne.getNom()).requestAttr("prenom",uneAutrePersonne.getPrenom()))
+        this.mockMvc.perform(post("/personnes/{idPersonne}", uneAutrePersonne.getIdPersonne())
+                .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
+                .content(MediaType.APPLICATION_JSON_VALUE)
+                .param("nom", uneAutrePersonne.getNom())
+                .param("prenom",uneAutrePersonne.getPrenom()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("idPersonne",is(idPersonne.intValue())));
     }

@@ -41,9 +41,10 @@ public class PersonneController {
         return new Personne(personneRecherche.getIdPersonne(),personneRecherche.getNom(),personneRecherche.getPrenom());
     }
 
-    @RequestMapping(value = "/{idPersonne}", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{idPersonne}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     Personne modifieUnePersonneExistante(@PathVariable String idPersonne, @RequestPart("nom") String nom, @RequestPart("prenom") String prenom) {
-        return this.personneService.updatePersonne(new Personne(new Long(idPersonne),nom,prenom));
+        Personne personneUpdate = this.personneService.updatePersonne(new Personne(new Long(idPersonne),nom,prenom));
+        return new Personne(personneUpdate.getIdPersonne(),personneUpdate.getNom(),personneUpdate.getPrenom());
     }
 
     @RequestMapping(value = "/{idPersonne}", method = RequestMethod.DELETE)
