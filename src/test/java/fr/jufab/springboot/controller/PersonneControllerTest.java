@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpOutputMessage;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -129,8 +131,8 @@ public class PersonneControllerTest {
         given(this.personneService.updatePersonne(uneAutrePersonne))
                 .willReturn(uneAutrePersonne);
 
-        this.mockMvc.perform(post("/personnes/{idPersonne}", uneAutrePersonne.getIdPersonne()).contentType(MediaType.APPLICATION_JSON)
-                .param("nom", uneAutrePersonne.getNom()).param("prenom",uneAutrePersonne.getPrenom()))
+        this.mockMvc.perform(post("/personnes/{idPersonne}", uneAutrePersonne.getIdPersonne()).contentType(MediaType.MULTIPART_FORM_DATA)
+                .requestAttr("nom", uneAutrePersonne.getNom()).requestAttr("prenom",uneAutrePersonne.getPrenom()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("idPersonne",is(idPersonne.intValue())));
     }
