@@ -42,7 +42,15 @@ public class PersonneController {
 
     @RequestMapping(value = "/{idPersonne}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody Personne modifieUnePersonneExistante(@PathVariable String idPersonne, @RequestParam MultiValueMap parametre) {
-        return this.personneService.updatePersonne(new Personne(new Long(idPersonne),String.valueOf(parametre.get("nom")),String.valueOf(parametre.get("prenom"))));
+        String nom = new String();
+        String prenom = new String();
+        if(null != parametre.get("nom")) {
+            nom = parametre.get("nom").toString();
+        }
+        if(null != parametre.get("prenom")) {
+            prenom = parametre.get("prenom").toString();
+        }
+        return this.personneService.updatePersonne(new Personne(new Long(idPersonne),nom,prenom));
     }
 
     @RequestMapping(value = "/{idPersonne}", method = RequestMethod.DELETE)
