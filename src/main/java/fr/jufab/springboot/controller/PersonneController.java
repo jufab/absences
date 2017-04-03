@@ -4,6 +4,7 @@ import fr.jufab.springboot.domain.Personne;
 import fr.jufab.springboot.service.PersonneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,26 +26,23 @@ public class PersonneController {
     }
 
     @RequestMapping(method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    Personne ajouteUnePersonne(@RequestBody Personne personne) {
-        Personne personneAjoutee = this.personneService.createPersonne(personne);
-        return new Personne(personneAjoutee.getIdPersonne(),personneAjoutee.getNom(),personneAjoutee.getPrenom());
+    @ResponseBody Personne ajouteUnePersonne(@RequestBody Personne personne) {
+        return this.personneService.createPersonne(personne);
     }
 
     @RequestMapping(method = RequestMethod.PUT,consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    Personne modifieUnePersonne(@RequestBody Personne personne) {
+    @ResponseBody Personne modifieUnePersonne(@RequestBody Personne personne) {
         return this.personneService.updatePersonne(personne);
     }
 
     @RequestMapping(value = "/{idPersonne}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    Personne obtenirUnePersonne(@PathVariable String idPersonne) {
-        Personne personneRecherche = this.personneService.getPersonneById(new Long(idPersonne));
-        return new Personne(personneRecherche.getIdPersonne(),personneRecherche.getNom(),personneRecherche.getPrenom());
+    @ResponseBody Personne obtenirUnePersonne(@PathVariable String idPersonne) {
+        return this.personneService.getPersonneById(new Long(idPersonne));
     }
 
-    @RequestMapping(value = "/{idPersonne}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    Personne modifieUnePersonneExistante(@PathVariable String idPersonne, @RequestPart("nom") String nom, @RequestPart("prenom") String prenom) {
-        Personne personneUpdate = this.personneService.updatePersonne(new Personne(new Long(idPersonne),nom,prenom));
-        return new Personne(personneUpdate.getIdPersonne(),personneUpdate.getNom(),personneUpdate.getPrenom());
+    @RequestMapping(value = "/{idPersonne}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody Personne modifieUnePersonneExistante(@PathVariable String idPersonne, @RequestParam MultiValueMap parametre) {
+        return this.personneService.updatePersonne(new Personne(new Long(idPersonne),String.valueOf(parametre.get("nom")),String.valueOf(parametre.get("prenom"))));
     }
 
     @RequestMapping(value = "/{idPersonne}", method = RequestMethod.DELETE)
