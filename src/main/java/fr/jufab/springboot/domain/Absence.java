@@ -31,6 +31,14 @@ public class Absence implements Serializable {
 
     public Absence() { }
 
+    public Absence(Long idAbsence,Personne personne, Date dateAbsence, Boolean matin, Boolean apresMidi, String status) {
+        this.idAbsence = idAbsence;
+        this.personne = personne;
+        this.dateAbsence = dateAbsence;
+        this.matin = matin;
+        this.apresMidi = apresMidi;
+        this.status = status;
+    }
 
     public Absence(Personne personne, Date dateAbsence, Boolean matin, Boolean apresMidi, String status) {
         this.personne = personne;
@@ -83,4 +91,19 @@ public class Absence implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Absence absence = (Absence) o;
+
+        if (!idAbsence.equals(absence.idAbsence)) return false;
+        if (!dateAbsence.equals(absence.dateAbsence)) return false;
+        if (!matin.equals(absence.matin)) return false;
+        if (!apresMidi.equals(absence.apresMidi)) return false;
+        return status.equals(absence.status);
+    }
+
 }
