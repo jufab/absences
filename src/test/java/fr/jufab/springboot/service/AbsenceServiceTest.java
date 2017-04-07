@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
@@ -23,7 +24,7 @@ import static org.assertj.core.util.DateUtil.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles("test")
+@AutoConfigureTestDatabase
 @SqlGroup({
         @Sql("classpath:fr/jufab/springboot/repository/personnes.sql"),
         @Sql("classpath:fr/jufab/springboot/repository/absences.sql")
