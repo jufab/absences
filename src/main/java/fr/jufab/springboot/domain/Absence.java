@@ -31,15 +31,6 @@ public class Absence implements Serializable {
 
     public Absence() { }
 
-    public Absence(Long idAbsence,Personne personne, Date dateAbsence, Boolean matin, Boolean apresMidi, String status) {
-        this.idAbsence = idAbsence;
-        this.personne = personne;
-        this.dateAbsence = dateAbsence;
-        this.matin = matin;
-        this.apresMidi = apresMidi;
-        this.status = status;
-    }
-
     public Absence(Personne personne, Date dateAbsence, Boolean matin, Boolean apresMidi, String status) {
         this.personne = personne;
         this.dateAbsence = dateAbsence;
@@ -51,6 +42,8 @@ public class Absence implements Serializable {
     public Long getIdAbsence() {
         return idAbsence;
     }
+
+    public void setIdAbsence(Long idAbsence) { this.idAbsence = idAbsence;}
 
     public Personne getPersonne() {
         return personne;
