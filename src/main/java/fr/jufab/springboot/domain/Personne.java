@@ -16,46 +16,28 @@ public class Personne implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonProperty("idPersonne")
     private Long idPersonne;
     @NotEmpty
-    @JsonProperty("nom")
     private String nom;
     @NotEmpty
-    @JsonProperty("prenom")
     private String prenom;
 
-    //@JsonBackReference
     @OneToMany(mappedBy="personne")
     private List<Absence> absences = new ArrayList<>();
 
     public Personne(){};
 
-    /*@JsonCreator
-    public Personne(@JsonProperty("idPersonne") Long idPersonne){
-        this.idPersonne=idPersonne;
-    }*/
 
-    @JsonCreator
-    public Personne(@JsonProperty("idPersonne") Long idPersonne,@JsonProperty("nom") String nom,@JsonProperty("prenom") String prenom) {
+    public Personne(Long idPersonne,String nom,String prenom) {
         this.idPersonne=idPersonne;
         this.nom = nom;
         this.prenom = prenom;
     }
-
-    /*@JsonCreator
-    public Personne(@JsonProperty("nom") String nom,@JsonProperty("prenom")String prenom) {
-        this.nom = nom;
-        this.prenom = prenom;
-    }*/
 
     public Long getIdPersonne() {
         return idPersonne;
     }
 
-    /*public void setIdPersonne(Long idPersonne) {
-        this.idPersonne = idPersonne;
-    }*/
 
     public void setAbsences(List<Absence> absences) {
         this.absences = absences;

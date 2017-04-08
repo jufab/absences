@@ -1,13 +1,17 @@
 package fr.jufab.springboot.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.jufab.springboot.domain.Absence;
 import fr.jufab.springboot.domain.Personne;
 import fr.jufab.springboot.service.PersonneService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -32,6 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @AutoConfigureMockMvc
+@AutoConfigureJsonTesters
 @WebMvcTest(PersonneController.class)
 public class PersonneControllerTest {
 
@@ -42,23 +47,12 @@ public class PersonneControllerTest {
     private PersonneService personneService;
 
     private List<Personne> uneListeDePersonnes;
-
-    private HttpMessageConverter mappingJackson2HttpMessageConverter;
-
-    @Autowired
-    void setConverters(HttpMessageConverter<?>[] converters) {
-
-        this.mappingJackson2HttpMessageConverter = Arrays.asList(converters).stream()
-                .filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter)
-                .findAny()
-                .orElse(null);
-
-        assertNotNull("the JSON message converter must not be null",
-                this.mappingJackson2HttpMessageConverter);
-    }
+    private JacksonTester<Personne> json;
 
     @Before
     public void initialisation() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JacksonTester.initFields(this, objectMapper);
         Personne unePersonne = new Personne(new Long(1),"FABRE", "julien");
         Personne uneAutrePersonne = new Personne(new Long(2),"DURAND", "julien");
         Personne uneAutreEncorePersonne = new Personne(new Long(2),"DUPONT", "julien");
@@ -89,7 +83,7 @@ public class PersonneControllerTest {
         given(this.personneService.createPersonne(personneAAjouter))
                 .willReturn(personneRetour);
 
-        String personneJson = json(personneAAjouter);
+        String personneJson = this.json.write(personneAAjouter).getJson();
         this.mockMvc.perform(post("/personnes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(personneJson))
@@ -99,16 +93,17 @@ public class PersonneControllerTest {
 
     @Test
     public void pousserUnePersonneDejaExistantePourLaModifier() throws Exception {
-        given(this.personneService.getAllPersonnes(0))
-                .willReturn(this.uneListeDePersonnes);
         Personne unePersonneAModifier = this.uneListeDePersonnes.get(0);
         unePersonneAModifier.setNom("MODIFIE");
-        String personneJson = json(unePersonneAModifier);
+        String personneJson = this.json.write(unePersonneAModifier).getJson();
+        given(this.personneService.updatePersonne(unePersonneAModifier))
+                .willReturn(unePersonneAModifier);
 
         this.mockMvc.perform(put("/personnes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(personneJson))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("nom",is(unePersonneAModifier.getNom())));
     }
 
     @Test
@@ -145,13 +140,5 @@ public class PersonneControllerTest {
         Long idPersonne = new Long(1);
         this.mockMvc.perform(delete("/personnes/{idPersonne}", idPersonne).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-    }
-
-
-    protected String json(Object o) throws IOException {
-        MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
-        this.mappingJackson2HttpMessageConverter.write(
-                o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
-        return mockHttpOutputMessage.getBodyAsString();
     }
 }
