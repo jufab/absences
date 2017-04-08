@@ -1,7 +1,5 @@
 package fr.jufab.springboot.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -30,6 +28,15 @@ public class Absence implements Serializable {
     private String status;
 
     public Absence() { }
+
+    public Absence(Long idAbsence,Personne personne, Date dateAbsence, Boolean matin, Boolean apresMidi, String status) {
+        this.idAbsence = idAbsence;
+        this.personne = personne;
+        this.dateAbsence = dateAbsence;
+        this.matin = matin;
+        this.apresMidi = apresMidi;
+        this.status = status;
+    }
 
     public Absence(Personne personne, Date dateAbsence, Boolean matin, Boolean apresMidi, String status) {
         this.personne = personne;
@@ -92,8 +99,8 @@ public class Absence implements Serializable {
 
         Absence absence = (Absence) o;
 
-        if (!idAbsence.equals(absence.idAbsence)) return false;
-        if (!dateAbsence.equals(absence.dateAbsence)) return false;
+        if (idAbsence != null ? !idAbsence.equals(absence.idAbsence) : absence.idAbsence != null) return false;
+        if (dateAbsence != null ? !dateAbsence.equals(absence.dateAbsence) : absence.dateAbsence != null) return false;
         if (!matin.equals(absence.matin)) return false;
         if (!apresMidi.equals(absence.apresMidi)) return false;
         return status.equals(absence.status);

@@ -22,7 +22,7 @@ public class PersonneController {
     }
 
     @RequestMapping(method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Personne> getAllPersonne(@RequestParam int limite) {
+    List<Personne> getAllPersonnes(@RequestParam int limite) {
         return this.personneService.getAllPersonnes(limite);
     }
 
