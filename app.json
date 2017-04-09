@@ -3,6 +3,7 @@
   "description": "API Absences test springboot",
   "repository": "https://github.com/jufab/absences.git",
   "image": "heroku/java",
+  "success_url": "/api",
   "keywords": ["api absences", "springboot"],
   "addons": [ "heroku-postgresql" ]
 }
