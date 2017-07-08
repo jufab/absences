@@ -1,4 +1,8 @@
 language: java
+sudo: false # faster builds
 jdk:
   - oraclejdk8
 script: mvn clean test jacoco:report coveralls:report
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
